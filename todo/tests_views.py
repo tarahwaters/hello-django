@@ -1,4 +1,5 @@
 from django.test import TestCase
+from .models import Item
 
 # Create your tests here.
 
@@ -14,7 +15,11 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'todo/add_item.html')
 
-    # def test_get_edit_item_page(self):
+    def test_get_edit_item_page(self):
+        item = Item.objects.create(name='Test Todo Item')
+        response = self.client.get(f'/edit/{item_id}')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'todo/edit_item.html')
     
     # def test_can_add_item(self):
     
