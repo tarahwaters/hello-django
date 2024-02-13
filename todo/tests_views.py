@@ -37,5 +37,5 @@ class TestViews(TestCase):
         item = Item.objects.create(name='Test Todo Item')
         response = self.client.get(f'/toggle/{item.id}')
         self.assertRedirects(response, '/')
-        updated_item = Item.objects.filter(id=item.id)
+        updated_item = Item.objects.get(id=item.id)
         self.assertFalse(updated_item.done)
