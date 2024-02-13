@@ -22,4 +22,5 @@ urlpatterns = [
     path('', get_todo_list, name='get_todo_list'),
     path('add', add_item, name='add'),
     path('edit/<item_id>', edit_item, name='edit'),
+    path('toggle/<item_id>', toggle_item, name='toggle'),
 ]
