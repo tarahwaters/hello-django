@@ -17,7 +17,7 @@ class TestViews(TestCase):
 
     def test_get_edit_item_page(self):
         item = Item.objects.create(name='Test Todo Item')
-        response = self.client.get(f'/edit/{item_id}')
+        response = self.client.get(f'/edit/{item.id}')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'todo/edit_item.html')
     
@@ -28,14 +28,14 @@ class TestViews(TestCase):
     
     def test_can_delete_item(self):
         item = Item.objects.create(name='Test Todo Item')
-        response = self.client.get(f'/delete/{item_id}')
+        response = self.client.get(f'/delete/{item.id}')
         self.assertRedirects(response, '/')
-        existing_items = Item.objects.filter(id=item_id)
+        existing_items = Item.objects.filter(id=item.id)
         self.assertEqual(len(existing_items), 0)
     
     def test_can_toggle_item(self):
         item = Item.objects.create(name='Test Todo Item')
-        response = self.client.get(f'/toggle/{item_id}')
+        response = self.client.get(f'/toggle/{item.id}')
         self.assertRedirects(response, '/')
-        updated_item = Item.objects.filter(id=item_id)
+        updated_item = Item.objects.filter(id=item.id)
         self.assertFalse(updated_item.done)
